@@ -12,11 +12,17 @@
     <form action="{{ route('alumnos.update', $alumno->id) }}" method="POST">
         @csrf
         @method('PUT')
-        <!-- Aquí puedes mostrar los campos del alumno y precargar los datos -->
-        <input type="text" name="nombre" value="{{ $alumno->nombre }}" placeholder="Nombre">
-        <input type="text" name="apellido" value="{{ $alumno->apellido }}" placeholder="Apellido">
-        <button type="submit">Guardar cambios</button>
+        <input type="text" name="matricula" placeholder="Matrícula" value="{{ $alumno->matricula }}">
+        <input type="text" name="nombre" placeholder="Nombre" value="{{ $alumno->nombre }}">
+        <input type="date" name="fecha_nacimiento" placeholder="Fecha de nacimiento"
+            value="{{ $alumno->fecha_nacimiento }}">
+        <input type="text" name="telefono" placeholder="Teléfono" value="{{ $alumno->telefono }}">
+        <input type="email" name="email" placeholder="Email (opcional)" value="{{ $alumno->email }}">
+        <input type="number" name="nivel_id" placeholder="ID de nivel" value="{{ $alumno->nivel_id }}">
+
+        <button type="submit">Actualizar</button>
     </form>
+
 
 </body>
 

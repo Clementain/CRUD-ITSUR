@@ -16,23 +16,20 @@
         <input type="date" name="fecha_nacimiento" placeholder="Fecha de nacimiento">
         <input type="text" name="telefono" placeholder="Teléfono">
         <input type="email" name="email" placeholder="Email (opcional)">
-        <input type="number" name="nivel_id" placeholder="ID de nivel">
 
+        <select name="nivel_id" id="nivel_id">
+            <option value="1">Primero</option>
+            <option value="2">Segundo</option>
+            <option value="3">Tercero</option>
+            <option value="4">Cuarto</option>
+            <option value="5">Quinto</option>
+            <option value="6">Sexto</option>
+            <option value="7">Septimo</option>
+            <option value="8">Octavo</option>
+            <option value="9">Noveno</option>
+        </select>
         <button type="submit">Guardar</button>
     </form>
-    <form action="{{ route('alumnos.destroy', ['alumno' => '__ALUMNO_ID__']) }}" method="POST">
-        @csrf
-        @method('DELETE')
-        <input type="number" name="id" placeholder="ID de Alumno">
-        <button type="submit">Eliminar</button>
-    </form>
-
-    <form action="">
-        <input type="number" name="id" placeholder="ID de Alumno">
-        <button type="submit">Eliminar</button>
-    </form>
-
-
 </body>
 
 </html>

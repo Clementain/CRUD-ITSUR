@@ -13,8 +13,16 @@ class AlumnoController extends Controller
      */
     public function index()
     {
-        //
+        $alumnos = Alumno::all();
+        return view('index', compact('alumnos'));
     }
+
+    public function agregar()
+    {
+        return view('alumnos');
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -35,14 +43,11 @@ class AlumnoController extends Controller
             'fecha_nacimiento' => 'required|date',
             'telefono' => 'required|string|max:20',
             'email' => 'nullable|email|max:50',
-            'nivel_id' => 'required|exists:nivels,id',
+            'nivel_id' => 'required|integer',
         ]);
-
         Alumno::create($data);
-
-        return view('alumnos');
+        return redirect()->route('alumnos.index')->with('success', 'El alumno ha sido agregado exitosamente.');
     }
-
 
     /**
      * Display the specified resource.
@@ -58,33 +63,39 @@ class AlumnoController extends Controller
     public function edit($id)
     {
         $alumno = Alumno::findOrFail($id);
-        return view('editar');
+        return view('editar', compact('alumno'));
     }
+
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
+        $data = $request->validate([
+            'matricula' => 'required|string|max:10',
+            'nombre' => 'required|string|max:50',
+            'fecha_nacimiento' => 'required|date',
+            'telefono' => 'required|string|max:20',
+            'email' => 'nullable|email|max:50',
+            'nivel_id' => 'required|exists:nivels,id',
+        ]);
+
         $alumno = Alumno::findOrFail($id);
-        $alumno->nombre = $request->input('nombre');
-        $alumno->apellido = $request->input('apellido');
-        // Actualiza otros atributos según sea necesario
-        $alumno->save();
+        $alumno->update($data);
 
-        // Realiza cualquier otra acción necesaria
-
-        return view('editar');
+        return redirect()->route('alumnos.index')->with('success', 'El alumno ha sido actualizado exitosamente.');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, $alumno)
+    public function destroy($id)
     {
-        $id = $request->input('id');
         $alumno = Alumno::findOrFail($id);
         $alumno->delete();
-        return view('alumnos')->with('success', 'El alumno ha sido eliminado exitosamente.');
+        return redirect()->route('alumnos.index')->with('success', 'El alumno ha sido eliminado exitosamente.');
     }
 }
