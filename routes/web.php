@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [AlumnoController::class, 'index']);
+Route::get('/alumnos/agregar', [AlumnoController::class, 'agregar'])->name('alumnos.agregar');
+Route::put('/alumnos/{alumno}', [AlumnoController::class, 'update'])->name('alumnos.update');
 
 Route::resource('/alumnos', AlumnoController::class);
