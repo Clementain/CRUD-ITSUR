@@ -11,27 +11,43 @@
 <body>
     <form action="{{ route('alumnos.store') }}" method="POST">
         @csrf
-        <input type="text" name="matricula" placeholder="Matrícula">
-        <input type="text" name="nombre" placeholder="Nombre">
-        <input type="date" name="fecha_nacimiento" placeholder="Fecha de nacimiento">
-        <input type="text" name="telefono" placeholder="Teléfono">
-        <input type="email" name="email" placeholder="Email (opcional)">
-        <input type="number" name="nivel_id" placeholder="ID de nivel">
-
+        <input type="text" name="matricula" placeholder="Matrícula" value="{{ old('matricula') }}">
+        @error('matricula')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
+        <input type="text" name="nombre" placeholder="Nombre" value="{{ old('nombre') }}">
+        @error('nombre')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
+        <input type="date" name="fecha_nacimiento" placeholder="Fecha de nacimiento"
+            value="{{ old('fecha_nacimiento') }}">
+        @error('fecha_nacimiento')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
+        <input type="text" name="telefono" placeholder="Teléfono" value="{{ old('telefono') }}">
+        @error('telefono')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
+        <input type="email" name="email" placeholder="Email (opcional)" value="{{ old('email') }}">
+        @error('email')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
+        <select name="nivel_id" id="nivel_id">
+            <option value="1" {{ old('nivel_id') == 1 ? 'selected' : '' }}>Primero</option>
+            <option value="2" {{ old('nivel_id') == 2 ? 'selected' : '' }}>Segundo</option>
+            <option value="3" {{ old('nivel_id') == 3 ? 'selected' : '' }}>Tercero</option>
+            <option value="4" {{ old('nivel_id') == 4 ? 'selected' : '' }}>Cuarto</option>
+            <option value="5" {{ old('nivel_id') == 5 ? 'selected' : '' }}>Quinto</option>
+            <option value="6" {{ old('nivel_id') == 6 ? 'selected' : '' }}>Sexto</option>
+            <option value="7" {{ old('nivel_id') == 7 ? 'selected' : '' }}>Séptimo</option>
+            <option value="8" {{ old('nivel_id') == 8 ? 'selected' : '' }}>Octavo</option>
+            <option value="9" {{ old('nivel_id') == 9 ? 'selected' : '' }}>Noveno</option>
+        </select>
+        @error('nivel_id')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
         <button type="submit">Guardar</button>
     </form>
-    <form action="{{ route('alumnos.destroy', ['alumno' => '__ALUMNO_ID__']) }}" method="POST">
-        @csrf
-        @method('DELETE')
-        <input type="number" name="id" placeholder="ID de Alumno">
-        <button type="submit">Eliminar</button>
-    </form>
-
-    <form action="">
-        <input type="number" name="id" placeholder="ID de Alumno">
-        <button type="submit">Eliminar</button>
-    </form>
-
 
 </body>
 
