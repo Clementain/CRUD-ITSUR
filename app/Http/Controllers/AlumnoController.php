@@ -45,9 +45,14 @@ class AlumnoController extends Controller
             'email' => 'nullable|email|max:50',
             'nivel_id' => 'required|integer',
         ]);
-        Alumno::create($data);
-        return redirect()->route('alumnos.index')->with('success', 'El alumno ha sido agregado exitosamente.');
+        $alumnoCreated = Alumno::create($data);
+        if ($alumnoCreated) {
+            return redirect()->route('alumnos.index')->with('success', 'El alumno ha sido agregado exitosamente.');
+        } else {
+            return redirect()->route('alumnos.index')->with('error', 'Error al agregar el alumno.');
+        }
     }
+
 
     /**
      * Display the specified resource.
@@ -79,14 +84,17 @@ class AlumnoController extends Controller
             'fecha_nacimiento' => 'required|date',
             'telefono' => 'required|string|max:20',
             'email' => 'nullable|email|max:50',
-            'nivel_id' => 'required|exists:nivels,id',
+            'nivel_id' => 'required|integer',
         ]);
-
         $alumno = Alumno::findOrFail($id);
         $alumno->update($data);
-
-        return redirect()->route('alumnos.index')->with('success', 'El alumno ha sido actualizado exitosamente.');
+        if ($alumno) {
+            return redirect()->route('alumnos.index')->with('success', 'El alumno ha sido actualizado exitosamente.');
+        } else {
+            return redirect()->route('alumnos.index')->with('error', 'Error al actualizar el alumno.');
+        }
     }
+
 
 
     /**
@@ -96,6 +104,10 @@ class AlumnoController extends Controller
     {
         $alumno = Alumno::findOrFail($id);
         $alumno->delete();
-        return redirect()->route('alumnos.index')->with('success', 'El alumno ha sido eliminado exitosamente.');
+        if ($alumno) {
+            return redirect()->route('alumnos.index')->with('success', 'El alumno ha sido eliminado exitosamente.');
+        } else {
+            return redirect()->route('alumnos.index')->with('error', 'Error al eliminar el alumno.');
+        }
     }
 }
